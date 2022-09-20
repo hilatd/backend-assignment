@@ -28,17 +28,6 @@ async function getMovieActors(movieId) {
     return cast.filter(actor => actor.name === actorName).length > 0;
   }
 
-  async function getAllMoviesPerActor (actorName) {
-    const moviesPerActor = [];
-    for (const [movie, id] of Object.entries(movies)) {
-        const cast = await getMovieActors(id);
-        if (isActorInMovieCast(actorName, cast)){
-            moviesPerActor.push(movie)  
-        } 
-    }
-    return { actorName : moviesPerActor};
-  }
-
   async function getAllMoviesPerAllActors () {
       const moviesPerActors = {};
       const moviesCasts = await getAllMoviesCast();
@@ -57,14 +46,14 @@ async function getMovieActors(movieId) {
     const moviesPerActors = {};
     const moviesCasts = await getAllMoviesCast();
     actors.forEach(actorName => {
-      const moviesPerActor = [];
+      const moviesPerActor = {};
       for (const [movie, cast] of Object.entries(moviesCasts)) {
           if (isActorInMovieCast(actorName, cast)){
               const character = cast.find(actor => actor.name === actorName)?.character;
-              moviesPerActor.push({movie, character})  
+              moviesPerActor[character] = movie; 
           } 
       }
-      if (moviesPerActor.length > 1){
+      if (Object.keys(moviesPerActor).length > 1){
         moviesPerActors[actorName] = moviesPerActor;
       }
       
@@ -73,7 +62,7 @@ async function getMovieActors(movieId) {
 }
 module.exports = {
     getMovieActors,
-    getAllMoviesPerActor,
+    getAllMoviesCast,
     getAllMoviesPerAllActors,
     getAllActorsWithMultipleCharacters
 }

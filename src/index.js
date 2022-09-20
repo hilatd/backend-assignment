@@ -1,10 +1,9 @@
-const axios = require('axios').default;
 const express = require('express')
 
 const { 
     getAllActorsWithMultipleCharacters,
      getAllMoviesPerAllActors
-     } = require('../src')
+     } = require('./service')
 
 
 const app = express()
@@ -15,8 +14,13 @@ app.get('/moviesPerActor', async function (req, res) {
     res.send(movies);
 })
 
+app.get('/actorsWithMultipleCharacters', async function (req, res) {
+    const actors = await getAllActorsWithMultipleCharacters();
+    res.send(actors);
+})
+
 app.get('/', function (req, res) {
-    res.send('Hello World')
+    res.send('Marvel Lovers DB')
 })
   
 app.listen(3000)

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Vi Backend Coding Assignment",
   "main": "src/index.js",
-  "author": "Alon Kaduri <alonk@vi.co>",
+  "author": "Alon Kaduri <alonk@vi.co> & Hilat Doron",
   "license": "MIT",
   "scripts": {
     "test": "jest"
